@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+import "messages.proto";
+import "google/protobuf/empty.proto";
+package Vision;
+
+service VisionService {
+	rpc SetRobot(Robot) returns (google.protobuf.Empty) {}
+	rpc SetRobots(stream Robot) returns (google.protobuf.Empty) {}
+}

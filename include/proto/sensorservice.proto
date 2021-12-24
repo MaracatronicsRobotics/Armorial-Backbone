@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "messages.proto";
+import "google/protobuf/empty.proto";
+package Sensor;
+
+service SensorService {
+	rpc SetRobotStatus(RobotStatus) returns (google.protobuf.Empty);
+}

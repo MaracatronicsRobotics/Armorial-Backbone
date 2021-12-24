@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "messages.proto";
+import "google/protobuf/empty.proto";
+package Coach;
+
+service CoachService {
+	rpc GetRobot(RobotIdentifier) returns (Robot);
+	rpc GetRobots(google.protobuf.Empty) returns (stream Robot);
+	rpc SetControl(ControlPacket) returns (google.protobuf.Empty);
+	rpc SetControls(stream ControlPacket) returns (google.protobuf.Empty);
+}

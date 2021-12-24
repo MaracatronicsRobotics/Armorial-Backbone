@@ -37,8 +37,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        include/CoachService.grpc.pb.cc \
-        include/CoachService.pb.cc \
+        include/actuatorservice.grpc.pb.cc \
+        include/actuatorservice.pb.cc \
+        include/coachservice.grpc.pb.cc \
+        include/coachservice.pb.cc \
+        include/messages.grpc.pb.cc \
+        include/messages.pb.cc \
+        include/sensorservice.grpc.pb.cc \
+        include/sensorservice.pb.cc \
+        include/visionservice.grpc.pb.cc \
+        include/visionservice.pb.cc \
         main.cpp
 
 # Default rules for deployment.
@@ -46,6 +54,14 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \
-    include/CoachService.grpc.pb.h \
-    include/CoachService.pb.h
+HEADERS += \ \
+    include/actuatorservice.grpc.pb.h \
+    include/actuatorservice.pb.h \
+    include/coachservice.grpc.pb.h \
+    include/coachservice.pb.h \
+    include/messages.grpc.pb.h \
+    include/messages.pb.h \
+    include/sensorservice.grpc.pb.h \
+    include/sensorservice.pb.h \
+    include/visionservice.grpc.pb.h \
+    include/visionservice.pb.h
