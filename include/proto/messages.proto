@@ -12,6 +12,11 @@ message Robot {
 	google.protobuf.Timestamp packetTimeStamp = 7;
 }
 
+message Ball {
+	Position ballPosition = 1;
+	Velocity ballVelocity = 2;
+}
+
 message ControlPacket {
 	RobotIdentifier robotIdentifier           = 1;
 	Velocity robotVelocity                    = 2;
@@ -21,6 +26,29 @@ message ControlPacket {
 	float w3                                  = 6;
 	float w4                                  = 7;
 	google.protobuf.Timestamp packetTimeStamp = 8;
+}
+
+message Field {
+	float fieldLength                    = 1;
+	float fieldWidth                     = 2;
+	float goalWidth                      = 3;
+	float goalDepth                      = 4;
+	float boundaryWidth                  = 5;
+	repeated FieldLineSegment fieldLines = 6;
+	repeated FieldCircularArc fieldArcs  = 7;
+}
+
+message FieldLineSegment {
+	Position p1     = 1;
+	Position p2     = 2;
+	float thickness = 3;
+}
+
+message FieldCircularArc {
+	Position center = 1;
+	float a1        = 2;
+	float a2        = 3;
+	float thickness = 4;
 }
 
 message RobotIdentifier {

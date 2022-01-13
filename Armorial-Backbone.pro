@@ -47,7 +47,13 @@ SOURCES += \
         include/sensorservice.pb.cc \
         include/visionservice.grpc.pb.cc \
         include/visionservice.pb.cc \
-        main.cpp
+        main.cpp \
+        src/entities/entity.cpp \
+        src/entities/services/baseservice.cpp \
+        src/entities/services/coach/coachservice.cpp \
+        src/exithandler.cpp \
+        src/utils/text/text.cpp \
+        src/utils/timer/timer.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -64,4 +70,10 @@ HEADERS += \ \
     include/sensorservice.grpc.pb.h \
     include/sensorservice.pb.h \
     include/visionservice.grpc.pb.h \
-    include/visionservice.pb.h
+    include/visionservice.pb.h \
+    src/entities/entity.h \
+    src/entities/services/baseservice.h \
+    src/entities/services/coach/coachservice.h \
+    src/exithandler.h \
+    src/utils/text/text.h \
+    src/utils/timer/timer.h

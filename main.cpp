@@ -1,22 +1,11 @@
 #include <QCoreApplication>
-#include <grpc/grpc.h>
-
-#include <grpcpp/security/server_credentials.h>
-#include <grpcpp/server.h>
-#include <grpcpp/server_builder.h>
-#include <grpcpp/server_context.h>
-
-#include <grpcpp/channel.h>
-#include <grpcpp/client_context.h>
-#include <grpcpp/create_channel.h>
-#include <grpcpp/security/credentials.h>
-
-#include <include/messages.pb.h>
-#include <include/coachservice.grpc.pb.h>
-#include <include/visionservice.grpc.pb.h>
 #include <QList>
 #include <QMutex>
 
+#include <src/entities/services/coach/coachservice.h>
+#include <src/exithandler.h>
+
+/*
 QList<Robot> robots;
 QMutex mutex;
 
@@ -228,72 +217,34 @@ void createRobot(Robot *robot, int robotId, bool isBlue, float x, float y, float
     robot->set_allocated_packettimestamp(&tempo);
     robot->set_allocated_robotstatus(&robotStatus);
 }
+*/
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    // Coach
-    std::string coachAddress("0.0.0.0:50051");
-    CoachServiceImpl coachService;
+    // Setup ExitHandler
+    ExitHandler::setApplication(&a);
+    ExitHandler::setup();
 
-    grpc::ServerBuilder coachBuilder;
-    coachBuilder.AddListeningPort(coachAddress, grpc::InsecureServerCredentials());
-    coachBuilder.RegisterService(&coachService);
+    CoachService* coach = new CoachService("0.0.0.0:50051");
+    coach->start();
 
-    std::unique_ptr<grpc::Server> coachServer(coachBuilder.BuildAndStart());
-    std::cout << "Coach Server listening on " << coachAddress << std::endl;
+//    CoachClient *coachClient = new CoachClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
 
-    // Vision
-    std::string visionAddress("0.0.0.0:50052");
-    VisionServiceImpl visionService;
+//    // Teste do coach client consultando o robo 0 amarelo
+//    RobotIdentifier identifier;
+//    Color *robotColor = new Color();
+//    robotColor->set_isblue(false);
+//    identifier.set_robotid(0);
+//    identifier.set_allocated_robotcolor(robotColor);
+//    Robot robot;
+//    coachClient->GetRobot(identifier, &robot);
 
-    grpc::ServerBuilder visionBuilder;
-    visionBuilder.AddListeningPort(visionAddress, grpc::InsecureServerCredentials());
-    visionBuilder.RegisterService(&visionService);
+    bool exec = a.exec();
 
-    std::unique_ptr<grpc::Server> visionServer(visionBuilder.BuildAndStart());
-    std::cout << "Vision Server listening on " << visionAddress << std::endl;
+    coach->stopEntity();
+    coach->wait();
 
-    CoachClient coachClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
-    VisionClient visionClient(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()));
-
-    // Teste do coach client consultando o robo 0 amarelo
-    RobotIdentifier identifier;
-    Color robotColor;
-    robotColor.set_isblue(false);
-    identifier.set_robotid(0);
-    identifier.set_allocated_robotcolor(&robotColor);
-    Robot robot;
-    coachClient.GetRobot(identifier, &robot);
-
-    // Teste do cadastro do robo 0 amarelo
-    Robot robo_danadinho = Robot();
-    visionClient.SetRobot(robo_danadinho);
-
-    // Teste do coach client consultando o robo 0 amarelo
-    coachClient.GetRobot(identifier, &robot);
-
-    coachServer->Wait();
-    visionServer->Wait();
-
-    /*
-    if(argc >= 2) {
-        std::string server_address("0.0.0.0:50051");
-        RouteGuideImpl service;
-
-        grpc::ServerBuilder builder;
-        builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
-        builder.RegisterService(&service);
-        std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
-        std::cout << "Server listening on " << server_address << std::endl;
-        server->Wait();
-    }
-    else {
-        RouteGuideClient guide(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
-        guide.GetFeature();
-    }
-    */
-
-    return a.exec();
+    return exec;
 }

@@ -7,4 +7,6 @@ package Vision;
 service VisionService {
 	rpc SetRobot(Robot) returns (google.protobuf.Empty) {}
 	rpc SetRobots(stream Robot) returns (google.protobuf.Empty) {}
+	rpc SetBall(Ball) returns (google.protobuf.Empty) {}
+	rpc SetField(Field) returns (google.protobuf.Empty) {}
 }
