@@ -1,5 +1,5 @@
-#ifndef COACH_H
-#define COACH_H
+#ifndef COACH_SERVICE_H
+#define COACH_SERVICE_H
 
 #include <include/coachservice.grpc.pb.h>
 #include <src/entities/services/baseservice.h>
@@ -13,4 +13,4 @@ public:
     grpc::Status GetRobots(grpc::ServerContext* context, const ::google::protobuf::Empty* request, grpc::ServerWriter<Robot>* writer);
 };
 
-#endif // COACH_H
+#endif // COACH_SERVICE_H
