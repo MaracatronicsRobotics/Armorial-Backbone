@@ -3,10 +3,10 @@
 #include <QMutex>
 
 #include <src/entities/services/coach/coachservice.h>
+#include <src/entities/sercices/sensor/sensorservice.h>
 #include <src/exithandler.h>
 
 /*
-QList<Robot> robots;
 QMutex mutex;
 
 class CoachServiceImpl final : public Coach::CoachService::Service {
@@ -229,6 +229,9 @@ int main(int argc, char *argv[])
 
     CoachService* coach = new CoachService("0.0.0.0:50051");
     coach->start();
+
+    SensorService sensor = new SensorService("0.0.0.0:50052");
+    sensor->start();
 
 //    CoachClient *coachClient = new CoachClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
 
