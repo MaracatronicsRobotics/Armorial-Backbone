@@ -40,7 +40,6 @@ SOURCES += \
         include/actuatorservice.grpc.pb.cc \
         include/actuatorservice.pb.cc \
         include/coachservice.grpc.pb.cc \
-        include/coachservice.pb.cc \
         include/messages.grpc.pb.cc \
         include/messages.pb.cc \
         include/sensorservice.grpc.pb.cc \
@@ -51,6 +50,7 @@ SOURCES += \
         src/entities/entity.cpp \
         src/entities/services/baseservice.cpp \
         src/entities/services/coach/coachservice.cpp \
+        src/entities/services/sensor/sensorservice.cpp \
         src/exithandler.cpp \
         src/utils/text/text.cpp \
         src/utils/timer/timer.cpp
@@ -74,6 +74,7 @@ HEADERS += \ \
     src/entities/entity.h \
     src/entities/services/baseservice.h \
     src/entities/services/coach/coachservice.h \
+    src/entities/services/sensor/sensorservice.h \
     src/exithandler.h \
     src/utils/text/text.h \
     src/utils/timer/timer.h
