@@ -29,10 +29,8 @@ grpc::Status SensorService::SetRobotStatus(grpc::ServerContext* context, RobotSt
 grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* reader) {
     mutex.lock();
     
-    int messages = reader->NextMessageSize();
-
-    for (int i = 0; i < messages; i++){
-        reader->read()
+    RobotStatus rs;
+    while (reader->read(&rs)){
         for (Robot r : robots) {
             if (r.RobotIdentifier == robotStatus.RobotIdentifier){
                 r.RobotStatus.set_batterycharge(robotStatus.batteryCharge);
@@ -43,7 +41,6 @@ grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc
             }
         }
     }
-    
     mutex.unlock();
     
     return grpc::Status::OK;
