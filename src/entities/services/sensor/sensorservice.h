@@ -10,8 +10,11 @@ public:
     SensorService(QString address);
     QString name();
 
-    grpc::Status SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus)
-    grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus)
+    QMutex mutex;
+
+
+    grpc::Status SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus, const ::google::protobuf::Empty* request);
+    grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus, const ::google::protobuf::Empty* request);
 private:
     QList<Robot> robots;
 };

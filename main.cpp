@@ -3,7 +3,7 @@
 #include <QMutex>
 
 #include <src/entities/services/coach/coachservice.h>
-#include <src/entities/sercices/sensor/sensorservice.h>
+#include <src/entities/services/sensor/sensorservice.h>
 #include <src/exithandler.h>
 
 /*
@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
     CoachService* coach = new CoachService("0.0.0.0:50051");
     coach->start();
 
-    SensorService sensor = new SensorService("0.0.0.0:50052");
+    SensorService* sensor = new SensorService("0.0.0.0:50052");
     sensor->start();
 
 //    CoachClient *coachClient = new CoachClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
