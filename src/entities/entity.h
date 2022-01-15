@@ -28,6 +28,9 @@
 
 #include <src/utils/timer/timer.h>
 
+/**
+ * @brief The Entity class is an extension of QThread, which contains all methods necessary to built an threaded class
+ */
 class Entity : public QThread
 {
 public:

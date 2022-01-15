@@ -23,6 +23,7 @@
 #define BASE_SERVICE_H
 
 #include <src/entities/entity.h>
+#include <src/world/world.h>
 #include <grpc/grpc.h>
 
 #include <grpcpp/security/server_credentials.h>
@@ -35,17 +36,17 @@
 #include <grpcpp/create_channel.h>
 #include <grpcpp/security/credentials.h>
 
-#include <include/messages.pb.h>
-#include <include/coachservice.grpc.pb.h>
-#include <include/visionservice.grpc.pb.h>
-
+/**
+ * @brief The BaseService class is the parent class which will be inherited on each Service implementation
+ */
 class BaseService : public Entity {
 public:
-    BaseService(QString address); /*!< @param address The address which the service will listen at */
+    BaseService(QString address, World* world); /*!< @param address The address which the service will listen at */
     virtual QString name() = 0;
 
 protected:
     QString _address; /*!< Address which the service will listen at */
+    World *_world; /*!< World pointer to request and insert upcoming data */
     grpc::Service *_service; /*!< The gRPC declaration of service that will be set in the registerService method */
     grpc::ServerBuilder _serverBuilder; /*!< The gRPC server builder */
     std::unique_ptr<grpc::Server> _server; /*!< The gRPC server pointer which will pointer to built server */
@@ -57,6 +58,11 @@ protected:
      * @param service The service implemented by the children class
      */
     void registerService(grpc::Service *service);
+
+    /**
+     * @return The World class pointer
+     */
+    World* getWorld();
 
 private:
     // Virtual methods

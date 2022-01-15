@@ -54,7 +54,8 @@ SOURCES += \
         src/entities/services/sensor/sensorservice.cpp \
         src/exithandler.cpp \
         src/utils/text/text.cpp \
-        src/utils/timer/timer.cpp
+        src/utils/timer/timer.cpp \
+        src/world/world.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -79,4 +80,5 @@ HEADERS += \ \
     src/entities/services/sensor/sensorservice.h \
     src/exithandler.h \
     src/utils/text/text.h \
-    src/utils/timer/timer.h
+    src/utils/timer/timer.h \
+    src/world/world.h
