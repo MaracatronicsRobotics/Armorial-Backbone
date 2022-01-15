@@ -11,32 +11,23 @@ QString CoachService::name() {
 grpc::Status CoachService::GetRobot(grpc::ServerContext* context, const RobotIdentifier* identifier,
                           Robot* robot) {
 
-//    mutex.lock();
-//    for(int i = 0; i < robots.size(); i++) {
-//        if(robots.at(i).robotidentifier().robotid() == identifier->robotid()
-//                && (robots.at(i).robotidentifier().robotcolor().isblue() == identifier->robotcolor().isblue())) {
-//            Robot robozinho = robots.at(i);
-//            robot = &robozinho;
-//            mutex.unlock();
-
-//            return grpc::Status::OK;
-//        }
-//    }
-//    mutex.unlock();
-
-    return grpc::Status::CANCELLED;
+    return grpc::Status::OK;
 }
 
-grpc::Status CoachService::GetRobots(grpc::ServerContext* context, const ::google::protobuf::Empty* request,
+grpc::Status CoachService::GetRobots(grpc::ServerContext* context, const Color* teamColor,
                         grpc::ServerWriter<Robot>* writer) {
-
-//    mutex.lock();
-//    for (Robot r : robots) {
-//        writer->Write(r);
-//    }
-//    mutex.unlock();
 
     return grpc::Status::OK;
 }
 
+grpc::Status CoachService::GetBall(grpc::ServerContext* context, const ::google::protobuf::Empty* request,
+                          Ball* ball) {
 
+    return grpc::Status::OK;
+}
+
+grpc::Status CoachService::GetField(grpc::ServerContext* context, const ::google::protobuf::Empty* request,
+                          Field* field) {
+
+    return grpc::Status::OK;
+}

@@ -23,11 +23,7 @@
 
 #include <src/utils/text/text.h>
 
-int Entity::_id = 0;
-
 Entity::Entity() {
-    _id++;               // global id +1
-    _entityPriority = 0; // default priority is 0
     _loopFrequency = 60; // default loop frequency is 60
     _isEnabled = true;   // enabling by default
     _loopEnabled = true; // enabling loop by default
@@ -55,20 +51,10 @@ void Entity::run(){
     finalization();
 }
 
-int Entity::entityId() {
-    return _id;
-}
-
 void Entity::setLoopFrequency(int hz) {
-    _mutexLoopTime.lock();
+    _mutexLoop.lock();
     _loopFrequency = hz;
-    _mutexLoopTime.unlock();
-}
-
-void Entity::setPriority(int priority) {
-    _mutexPriority.lock();
-    _entityPriority = priority;
-    _mutexPriority.unlock();
+    _mutexLoop.unlock();
 }
 
 void Entity::enableEntity() {
@@ -78,9 +64,9 @@ void Entity::enableEntity() {
 }
 
 void Entity::disableLoop() {
-    _mutexEnabled.lock();
+    _mutexLoop.lock();
     _loopEnabled = false;
-    _mutexEnabled.unlock();
+    _mutexLoop.unlock();
 }
 
 void Entity::stopEntity() {
@@ -90,19 +76,11 @@ void Entity::stopEntity() {
 }
 
 int Entity::loopFrequency() {
-    _mutexLoopTime.lock();
+    _mutexLoop.lock();
     int loopFrequency = _loopFrequency;
-    _mutexLoopTime.unlock();
+    _mutexLoop.unlock();
 
     return loopFrequency;
-}
-
-int Entity::entityPriority() {
-    _mutexPriority.lock();
-    int entityPriority = _entityPriority;
-    _mutexPriority.unlock();
-
-    return entityPriority;
 }
 
 bool Entity::isEnabled() {
@@ -114,9 +92,9 @@ bool Entity::isEnabled() {
 }
 
 bool Entity::isLoopEnabled() {
-    _mutexEnabled.lock();
+    _mutexLoop.lock();
     bool loopEnabled = _loopEnabled;
-    _mutexEnabled.unlock();
+    _mutexLoop.unlock();
 
     return loopEnabled;
 }

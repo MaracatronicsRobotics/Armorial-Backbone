@@ -31,50 +31,44 @@
 class Entity : public QThread
 {
 public:
-    Entity();
-    virtual QString name() = 0;
+    Entity(); /*!< Default constructor */
+    virtual QString name() = 0; /*!< @return name of the service */
 
     // Setters
-    void setLoopFrequency(int hz);
-    void setPriority(int priority);
-    void enableEntity();
-    void disableLoop();
-    void stopEntity();
+    void setLoopFrequency(int hz); /*!< Set the frequency of loop() @param hz The frequency in hertz */
+    void enableEntity(); /*!< Enable the entity */
+    void disableLoop(); /*!< Disable the loop() method call */
+    void stopEntity(); /*!< Stop the entity, casting finalization() method later */
 
     // Getters
-    int loopFrequency();
-    int entityPriority();
-    int entityId();
-    bool isEnabled();
-    bool isLoopEnabled();
+    int loopFrequency(); /*!< @returns The loop frequency */
+    bool isEnabled(); /*!< @returns If the entity is enabled */
+    bool isLoopEnabled(); /*!< @returns If the loop() method call is enabled */
 
 private:
     // Main run method
-    void run();
+    void run(); /*!< Implementation of QThread which contains the structure to call the virtual methods */
 
     // Virtual methods
-    virtual void initialization() = 0;
-    virtual void loop() = 0;
-    virtual void finalization() = 0;
+    virtual void initialization() = 0; /*!< This method is responsible for several initializations which NEED to run in the thread (like QTimer) */
+    virtual void loop() = 0; /*!< This method needs to implement what will be called in 'hz' times per second */
+    virtual void finalization() = 0; /*!< This method implements all necessary calls which NEED to run in the thread (like QTimer destructions) */
 
     // Entity info
-    int _loopFrequency;
-    int _entityPriority;
-    bool _isEnabled;
-    bool _loopEnabled;
-    static int _id;
+    int _loopFrequency; /*!< Stores the loop frequency (starts with 60 by default) */
+    bool _isEnabled; /*!< Stores the Entity enabled status (starts with false by default) */
+    bool _loopEnabled; /*!< Stores the loop() method call status (starts with true by default) */
 
     // Entity timer
-    Timer _entityTimer;
-    void startTimer();
-    void stopTimer();
-    long getRemainingTime();
+    Timer _entityTimer; /*!< Timer which will be used to execute the loop() method in the determined frequency */
+    void startTimer(); /*!< Auxiliar method used to start the Timer */
+    void stopTimer(); /*!< Auxiliar method used to stop the Timer */
+    long getRemainingTime(); /*!< @returns time passed between the startTimer() and stopTimer() calls */
 
     // Entity mutexes
-    QMutex _mutexRunning;
-    QMutex _mutexEnabled;
-    QMutex _mutexPriority;
-    QMutex _mutexLoopTime;
+    QMutex _mutexEnabled; /*!< Mutex to avoid problems with the Entity status changes */
+    QMutex _mutexPriority; /*!< Mutex to avoid problems with the priority changes */
+    QMutex _mutexLoop; /*!< Mutex to avoid problems with loop() related changes */
 };
 
 #endif // ENTITY_H
