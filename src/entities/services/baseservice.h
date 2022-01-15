@@ -41,15 +41,21 @@
 
 class BaseService : public Entity {
 public:
-    BaseService(QString address);
+    BaseService(QString address); /*!< @param address The address which the service will listen at */
     virtual QString name() = 0;
 
 protected:
-    QString _address;
-    grpc::Service *_service;
-    grpc::ServerBuilder _serverBuilder;
-    std::unique_ptr<grpc::Server> _server;
+    QString _address; /*!< Address which the service will listen at */
+    grpc::Service *_service; /*!< The gRPC declaration of service that will be set in the registerService method */
+    grpc::ServerBuilder _serverBuilder; /*!< The gRPC server builder */
+    std::unique_ptr<grpc::Server> _server; /*!< The gRPC server pointer which will pointer to built server */
 
+    /**
+     * Register the service into the parent class, allowing it to
+     * start the server pointing to that service
+     *
+     * @param service The service implemented by the children class
+     */
     void registerService(grpc::Service *service);
 
 private:

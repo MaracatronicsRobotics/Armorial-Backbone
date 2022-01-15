@@ -27,16 +27,16 @@
 class Text
 {
 public:
-    Text();
+    Text(); /*!< Default constructor */
 
-    static std::string center(std::string s);
-    static std::string bold(std::string s);
-    static std::string red(std::string s, bool bold = false);
-    static std::string green(std::string s, bool bold = false);
-    static std::string yellow(std::string s, bool bold = false);
-    static std::string blue(std::string s, bool bold = false);
-    static std::string purple(std::string s, bool bold = false);
-    static std::string cyan(std::string s, bool bold = false);
+    static std::string center(std::string s); /*!< @param s The string @returns The centered string */
+    static std::string bold(std::string s); /*!< @param s The string @returns The bolded string */
+    static std::string red(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured red */
+    static std::string green(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured green */
+    static std::string yellow(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured yellow */
+    static std::string blue(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured blue */
+    static std::string purple(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured purple */
+    static std::string cyan(std::string s, bool bold = false); /*!< @param s The string @param bold If bold needed @returns The string coloured cyan */
 };
 
 #endif // TEXT_H

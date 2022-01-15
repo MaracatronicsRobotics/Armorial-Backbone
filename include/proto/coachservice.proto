@@ -6,7 +6,7 @@ package Coach;
 
 service CoachService {
 	rpc GetRobot(RobotIdentifier) returns (Robot);
-	rpc GetRobots(google.protobuf.Empty) returns (stream Robot);
+	rpc GetRobots(Color) returns (stream Robot);
 	rpc GetBall(google.protobuf.Empty) returns (Ball);
 	rpc GetField(google.protobuf.Empty) returns (Field); 
 	rpc SetControl(ControlPacket) returns (google.protobuf.Empty);

@@ -55,3 +55,6 @@ bin/
 build/
 *.pb.*
 *.grpc.*
+
+html/
+latex/

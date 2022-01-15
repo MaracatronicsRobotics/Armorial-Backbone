@@ -28,14 +28,14 @@
 class ExitHandler : public QObject
 {
 public:
-    ExitHandler();
-    static void setApplication(QCoreApplication *app);
-    static void setup();
-    static void run(int s);
+    ExitHandler(); /*!< Default constructor */
+    static void setApplication(QCoreApplication *app); /*!< Register the QApplication to ExitHandler @param app The application */
+    static void setup(); /*!< Setup application handlers */
+    static void run(int s); /*!< Run the ExitHandler (called when the application cast an exit) @param s The exit level (1 for normal and 2 for force) */
 
 private:
-    static QCoreApplication *_app;
-    static int _counter;
+    static QCoreApplication *_app; /*!< Stores the registered QCoreApplication */
+    static int _counter; /*!< Stores the counter for the exit level */
 };
 
 #endif // EXITHANDLER_H
