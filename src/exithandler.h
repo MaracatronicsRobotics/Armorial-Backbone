@@ -25,6 +25,9 @@
 #include <QObject>
 #include <QCoreApplication>
 
+/**
+ * @brief The ExitHandler class help the main program to avoid force exit, awaiting for the threads and services correct finalization
+ */
 class ExitHandler : public QObject
 {
 public:

@@ -24,6 +24,9 @@
 
 #include <ctime>
 
+/**
+ * @brief The Timer class is the mainly responsible for all Timer related functions.
+ */
 class Timer
 {
 public:

@@ -24,6 +24,9 @@
 
 #include <iostream>
 
+/**
+ * @brief The Text class contains methods to transform strings
+ */
 class Text
 {
 public:

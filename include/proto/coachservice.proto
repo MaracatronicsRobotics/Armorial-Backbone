@@ -9,6 +9,4 @@ service CoachService {
 	rpc GetRobots(Color) returns (stream Robot);
 	rpc GetBall(google.protobuf.Empty) returns (Ball);
 	rpc GetField(google.protobuf.Empty) returns (Field); 
-	rpc SetControl(ControlPacket) returns (google.protobuf.Empty);
-	rpc SetControls(stream ControlPacket) returns (google.protobuf.Empty);
 }
