@@ -50,6 +50,7 @@ SOURCES += \
         src/entities/entity.cpp \
         src/entities/services/baseservice.cpp \
         src/entities/services/coach/coachservice.cpp \
+        src/entities/services/vision/visionservice.cpp \
         src/entities/services/sensor/sensorservice.cpp \
         src/exithandler.cpp \
         src/utils/text/text.cpp \
@@ -74,6 +75,7 @@ HEADERS += \ \
     src/entities/entity.h \
     src/entities/services/baseservice.h \
     src/entities/services/coach/coachservice.h \
+    src/entities/services/vision/visionservice.h \
     src/entities/services/sensor/sensorservice.h \
     src/exithandler.h \
     src/utils/text/text.h \
