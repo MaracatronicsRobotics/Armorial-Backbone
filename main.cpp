@@ -3,6 +3,7 @@
 #include <QMutex>
 
 #include <src/entities/services/coach/coachservice.h>
+#include <src/entities/services/vision/visionservice.h>
 #include <src/entities/services/sensor/sensorservice.h>
 #include <src/exithandler.h>
 
@@ -229,6 +230,9 @@ int main(int argc, char *argv[])
 
     CoachService* coach = new CoachService("0.0.0.0:50051");
     coach->start();
+
+    VisionService* vision = new VisionService("0.0.0.0:50053");
+    vision->start();
 
     SensorService* sensor = new SensorService("0.0.0.0:50052");
     sensor->start();
