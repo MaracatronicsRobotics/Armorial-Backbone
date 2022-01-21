@@ -7,11 +7,10 @@
 
 class SensorService : public BaseService, public Sensor::SensorService::Service {
 public:
-    SensorService(QString address);
+    SensorService(QString address, World* world);
     QString name();
 
     QMutex mutex;
-
 
     grpc::Status SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus, const ::google::protobuf::Empty* request);
     grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus, const ::google::protobuf::Empty* request);

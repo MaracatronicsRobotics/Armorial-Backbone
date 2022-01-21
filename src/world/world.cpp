@@ -59,7 +59,7 @@ void World::setRobotsData(QList<Robot> robotList) {
     _robotMutex.unlock();
 }
 
-void World::setRobotData(Robot* robot) {
+void World::setRobotData(const Robot* robot) {
     _robotMutex.lockForWrite();
 
     // Get the robots list for the specified color
@@ -82,7 +82,43 @@ void World::setRobotData(Robot* robot) {
     _robotMutex.unlock();
 }
 
-void World::setFieldData(Field* field) {
+void World::setRobotStatus(RobotStatus *robotStatus) {
+    _robotMutex.lockForWrite();
+
+    QList<Robot>* robotList = _robots.value(robotStatus->robotidentifier().robotcolor().isblue());
+    RobotIdentifier rsid = robotStatus->robotidentifier();
+    for (Robot r : *robotList) {
+        RobotIdentifier rid = r.robotidentifier();
+
+        if ((rid.robotid() == rsid.robotid()) && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
+            // set Information
+            r.set_allocated_robotstatus(robotStatus);
+
+        }
+    }
+
+    _robotMutex.unlock();
+}
+
+void World::setRobotsStatus(QList<RobotStatus> robotStatusList) {
+    _robotMutex.lockForWrite();
+
+    for (RobotStatus rs : robotStatusList) {
+        RobotIdentifier rsid = rs.robotidentifier();
+        QList<Robot>* robotList = _robots.value(rs.robotidentifier().robotcolor().isblue());
+        for (Robot r : *robotList) {
+            RobotIdentifier rid = r.robotidentifier();
+            if (rid.robotid() == rsid.robotid() && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
+                // Match
+                r.set_allocated_robotstatus(&rs);
+            }
+        }
+    }
+
+    _robotMutex.unlock();
+}
+
+void World::setFieldData(const Field* field) {
     _fieldMutex.lockForWrite();
 
     // Replace
@@ -91,7 +127,7 @@ void World::setFieldData(Field* field) {
     _fieldMutex.unlock();
 }
 
-void World::setBallData(Ball* ball) {
+void World::setBallData(const Ball* ball) {
     _ballMutex.lockForWrite();
 
     // Replace
