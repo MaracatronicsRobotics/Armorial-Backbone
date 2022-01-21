@@ -6,7 +6,7 @@
 
 class VisionService : public BaseService, public Vision::VisionService::Service {
 public:
-    VisionService(QString address);
+    VisionService(QString address, World* world);
     QString name();
     QMutex mutex;
 
@@ -16,9 +16,6 @@ public:
     grpc::Status SetField(::grpc::ServerContext *context, const ::Field *field, ::google::protobuf::Empty *response);
 
 private:
-    QList<Robot> _robots;
-    Ball _ball;
-    Field _field;
 };
 
 #endif // VISIONSERVICE_H

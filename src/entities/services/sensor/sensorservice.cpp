@@ -1,6 +1,6 @@
 #include "sensorservice.h"
 
-SensorService::SensorService(QString address) : BaseService(address) {
+SensorService::SensorService(QString address, World* world) : BaseService(address, world) {
     registerService(this);
     robots.clear();
 }
@@ -10,39 +10,20 @@ QString SensorService::name() {
 }
 
 grpc::Status SensorService::SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus, const ::google::protobuf::Empty* request) {
-    RobotIdentifier rsid = robotStatus->robotidentifier();
+    getWorld()->setRobotStatus(robotStatus);
 
-    mutex.lock();
-    for (Robot r : robots) {
-        RobotIdentifier rid = r.robotidentifier();
-
-        if ((rid.robotid() == rsid.robotid()) && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
-            // set Information
-            r.set_allocated_robotstatus(robotStatus);
-            mutex.unlock();
-            return grpc::Status::OK;
-        }
-    }
-    mutex.unlock();
-    return grpc::Status::CANCELLED;
+    return grpc::Status::OK;
 }
 
 grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* reader, const ::google::protobuf::Empty* request) {
-    mutex.lock();
-    
     RobotStatus rs;
-    while (reader->Read(&rs)){
-        RobotIdentifier rsid = rs.robotidentifier();
-        for (Robot r : robots) {
-            RobotIdentifier rid = r.robotidentifier();
 
-            if (rid.robotid() == rsid.robotid() && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
-                // Match
-                r.set_allocated_robotstatus(&rs);
-            }
-        }
+    QList<RobotStatus> rsList;
+    while (reader->Read(&rs)){
+        rsList.push_back(rs);
     }
-    mutex.unlock();
+
+    getWorld()->setRobotsStatus(rsList);
     
     return grpc::Status::OK;
 }

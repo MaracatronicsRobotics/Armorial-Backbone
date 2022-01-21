@@ -46,21 +46,35 @@ public:
      *
      * @param robot Robot class containing the data
      */
-    void setRobotData(Robot* robot);
+    void setRobotData(const Robot* robot);
+
+    /**
+     * Store the robot data in their specific color list
+     *
+     * @param robot Robot class containing the data
+     */
+    void setRobotStatus(RobotStatus* robotStatus);
+
+    /**
+     * Store the robot data in their specific color list
+     *
+     * @param robot Robot class containing the data
+     */
+    void setRobotsStatus(QList<RobotStatus> robotStatusList);
 
     /**
      * Store the field data
      *
      * @param field Field class containing the data
      */
-    void setFieldData(Field* field);
+    void setFieldData(const Field* field);
 
     /**
      * Store the ball data
      *
      * @param ball Ball class containing the data
      */
-    void setBallData(Ball* ball);
+    void setBallData(const Ball* ball);
 
     /**
      *
