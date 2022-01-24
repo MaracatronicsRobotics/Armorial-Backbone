@@ -84,7 +84,7 @@ void World::setRobotData(const Robot* robot) {
 
 void World::setRobotStatus(RobotStatus *robotStatus) {
     _robotMutex.lockForWrite();
-
+    std::cout << "UEPA 1" << std::endl;
     QList<Robot>* robotList = _robots.value(robotStatus->robotidentifier().robotcolor().isblue());
     RobotIdentifier rsid = robotStatus->robotidentifier();
     for (Robot r : *robotList) {
@@ -96,6 +96,7 @@ void World::setRobotStatus(RobotStatus *robotStatus) {
 
         }
     }
+    std::cout << "UEPA 2" << std::endl;
 
     _robotMutex.unlock();
 }

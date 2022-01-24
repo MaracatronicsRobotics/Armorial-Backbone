@@ -10,7 +10,6 @@ public:
     SensorService(QString address, World* world);
     QString name();
 
-    QMutex mutex;
     /**
      * Updates the status of a single robot.
      *
@@ -27,8 +26,6 @@ public:
      * @return status of the request
      */
     grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus, const ::google::protobuf::Empty* request);
-private:
-    QList<Robot> robots;
 };
 
 #endif // SENSOR_SERVICE_H
