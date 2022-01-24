@@ -37,7 +37,7 @@ public:
     QString name();
 
     /**
-     * Get an robot with specified identifier
+     * Get a robot with specified identifier
      *
      * @param identifier The robot identifier (id and color)
      * @param robot The returned robot data (if any)
