@@ -64,7 +64,7 @@ void BaseService::initialization() {
         return ;
     }
 
-    std::cout << name().toStdString() + " Service listening on " << _address.toStdString() << std::endl;
+    std::cout << name().toStdString() + " Service listening on " + _address.toStdString() + " \n";
 }
 
 void BaseService::loop() {
@@ -74,5 +74,5 @@ void BaseService::loop() {
 void BaseService::finalization() {
     _server->Shutdown();
     _server->Wait();
-    std::cout << name().toStdString() + " Server shutdown." << std::endl;
+    std::cout << name().toStdString() + " Server shutdown." + "\n";
 }
