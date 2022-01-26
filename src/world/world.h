@@ -53,7 +53,7 @@ public:
      *
      * @param robot Robot class containing the data
      */
-    void setRobotStatus(RobotStatus* robotStatus);
+    void setRobotStatus(const RobotStatus* robotStatus);
 
     /**
      * Store the robot data in their specific color list

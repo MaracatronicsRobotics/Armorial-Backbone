@@ -82,9 +82,9 @@ void World::setRobotData(const Robot* robot) {
     _robotMutex.unlock();
 }
 
-void World::setRobotStatus(RobotStatus *robotStatus) {
+void World::setRobotStatus(const RobotStatus *robotStatus) {
     _robotMutex.lockForWrite();
-    std::cout << "UEPA 1" << std::endl;
+
     QList<Robot>* robotList = _robots.value(robotStatus->robotidentifier().robotcolor().isblue());
     RobotIdentifier rsid = robotStatus->robotidentifier();
     for (Robot r : *robotList) {
@@ -92,16 +92,23 @@ void World::setRobotStatus(RobotStatus *robotStatus) {
 
         if ((rid.robotid() == rsid.robotid()) && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
             // set Information
-            r.set_allocated_robotstatus(robotStatus);
-
+            std::string stream = robotStatus->SerializeAsString();
+            RobotStatus* rsptr = new RobotStatus();
+            rsptr->ParseFromString(stream);
+            r.set_allocated_robotstatus(rsptr);
         }
     }
-    std::cout << "UEPA 2" << std::endl;
 
     _robotMutex.unlock();
 }
 
-void World::setRobotsStatus(QList<RobotStatus> robotStatusList) {
+void World::setRobotsStatus(QList<RobotStatus> robotStatusList) {    
+    // Check if the robot list contains any data
+    if(!robotStatusList.size()) {
+        std::cout << "World::setRobotsStatus(QList<RobotStatus> robotStatusList) list does not contain any element.\n";
+        return ;
+    }
+
     _robotMutex.lockForWrite();
 
     for (RobotStatus rs : robotStatusList) {
@@ -111,12 +118,16 @@ void World::setRobotsStatus(QList<RobotStatus> robotStatusList) {
             RobotIdentifier rid = r.robotidentifier();
             if (rid.robotid() == rsid.robotid() && rid.robotcolor().isblue() == rsid.robotcolor().isblue()){
                 // Match
-                r.set_allocated_robotstatus(&rs);
+                std::string stream = rs.SerializeAsString();
+                RobotStatus* rsptr = new RobotStatus();
+                rsptr->ParseFromString(stream);
+                r.set_allocated_robotstatus(rsptr);
             }
         }
     }
 
     _robotMutex.unlock();
+
 }
 
 void World::setFieldData(const Field* field) {
