@@ -22,9 +22,7 @@ grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc
         rsList.push_back(rs);
     }
 
-    std::cout << "Trying to set list." << std::endl;
     getWorld()->setRobotsStatus(rsList);
-    std::cout << "List set." << std::endl;
 
     return grpc::Status::OK;
 }
