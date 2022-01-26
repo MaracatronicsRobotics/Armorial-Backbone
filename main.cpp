@@ -189,12 +189,14 @@ int main(int argc, char *argv[])
     Color color;
     color.set_isblue(false);
 
-//    coachClient->GetRobots(&robotList, color);
+    coachClient->GetRobots(&robotList, color);
 
-//    std::cout << "Tamanho da lista: " << robotList.size() << std::endl;
-//    for (Robot r : robotList) {
-//        std::cout << r.robotidentifier().robotid() << std::endl;
-//    }
+    visionClient->SetRobots(robotList);
+
+    std::cout << "Tamanho da lista: " << robotList.size() << std::endl;
+    for (Robot r : robotList) {
+        std::cout << r.robotidentifier().robotid() << std::endl;
+    }
 
     bool exec = a.exec();
 
