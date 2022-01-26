@@ -17,7 +17,7 @@ public:
      * @param request Empty as default (no request data needed)
      * @return status of the request
      */
-    grpc::Status SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus, const ::google::protobuf::Empty* request);
+    grpc::Status SetRobotStatus(grpc::ServerContext* context, const RobotStatus* robotStatus, ::google::protobuf::Empty* request);
     /**
      * Updates the status of many robots.
      *
@@ -25,7 +25,7 @@ public:
      * @param request Empty as default (no request data needed)
      * @return status of the request
      */
-    grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus, const ::google::protobuf::Empty* request);
+    grpc::Status SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* allRobotStatus, ::google::protobuf::Empty* request);
 };
 
 #endif // SENSOR_SERVICE_H

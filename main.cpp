@@ -144,49 +144,57 @@ int main(int argc, char *argv[])
     CoachClient *coachClient = new CoachClient(grpc::CreateChannel("localhost:50052", grpc::InsecureChannelCredentials()));
     SensorClient *sensorClient = new SensorClient(grpc::CreateChannel("localhost:50053", grpc::InsecureChannelCredentials()));
 
+    QList<RobotIdentifier*> robotIdentifierList;
+    QList<Color*> colorList;
+    QList<RobotStatus> robotStatusList;
     QList<Robot> robotList;
     std::cout << "Inserting robots..." << std::endl;
     for (int i = 0; i < 10; i++) {
         std::cout << "Robot n: " << i << std::endl;
         Robot robot;
         RobotIdentifier *robotID = new RobotIdentifier();
-        //RobotIdentifier *robotID2 = new RobotIdentifier();
+        RobotIdentifier *robotID2 = new RobotIdentifier();
         RobotStatus robotStatus;
 
         robotID->set_robotid(i);
-        //robotID2->set_robotid(i);
+        robotID2->set_robotid(i);
         Color *color = new Color();
-        //Color *color2 = new Color();
+        Color *color2 = new Color();
         color->set_isblue(i%2);
-        //color2->set_isblue(i%2);
+        color2->set_isblue(i%2);
         robotID->set_allocated_robotcolor(color);
-        //robotID2->set_allocated_robotcolor(color2);
+        robotID2->set_allocated_robotcolor(color2);
         robot.set_allocated_robotidentifier(robotID);
         std::cout << "Robot " << i << " is set" << std::endl;
 
-        //robotStatus.set_allocated_robotidentifier(robotID2);
-        //robotStatus.set_infrared(true);
-        //robotStatus.set_isdribbling(true);
-        //robotStatus.set_batterycharge(80.0);
-        //robotStatus.set_capacitorcharge(69.0);
-        //robotStatus.set_kickontouch(false);
-        //std::cout << "Robot " << i << " status are set" << std::endl;
+        robotStatus.set_allocated_robotidentifier(robotID2);
+        robotStatus.set_infrared(true);
+        robotStatus.set_isdribbling(true);
+        robotStatus.set_batterycharge(80.0);
+        robotStatus.set_capacitorcharge(69.0);
+        robotStatus.set_kickontouch(false);
+        std::cout << "Robot " << i << " status are set" << std::endl;
 
         visionClient->SetRobot(robot);
         std::cout << "Robot " << i << " sent to vision" << std::endl;
+        robotIdentifierList.push_back(robotID2);
+        colorList.push_back(color2);
+        robotStatusList.push_back(robotStatus);
         //sensorClient->SetRobotStatus(robotStatus);
         //std::cout << "Robot " << i << " status sent to sensor" << std::endl;
     }
-
+    std::cout << "Setting all robots in the robotStatusList!" << std::endl;
+    sensorClient->SetAllRobotStatus(robotStatusList);
+    std::cout << "Setted all robots in the robotStatusList!" << std::endl;
     Color color;
     color.set_isblue(false);
 
-    coachClient->GetRobots(&robotList, color);
+//    coachClient->GetRobots(&robotList, color);
 
-    std::cout << "Tamanho da lista: " << robotList.size() << std::endl;
-    for (Robot r : robotList) {
-        std::cout << r.robotidentifier().robotid() << std::endl;
-    }
+//    std::cout << "Tamanho da lista: " << robotList.size() << std::endl;
+//    for (Robot r : robotList) {
+//        std::cout << r.robotidentifier().robotid() << std::endl;
+//    }
 
     bool exec = a.exec();
 
