@@ -8,16 +8,13 @@ QString SensorService::name() {
     return "Sensor";
 }
 
-grpc::Status SensorService::SetRobotStatus(grpc::ServerContext* context, RobotStatus* robotStatus, const ::google::protobuf::Empty* request) {
-
-    std::cout << "UEPA 1" << std::endl;
+grpc::Status SensorService::SetRobotStatus(grpc::ServerContext* context, const RobotStatus* robotStatus, ::google::protobuf::Empty* request) {
     getWorld()->setRobotStatus(robotStatus);
-    std::cout << "UEPA 2" << std::endl;
 
     return grpc::Status::OK;
 }
 
-grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* reader, const ::google::protobuf::Empty* request) {
+grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc::ServerReader<RobotStatus>* reader, ::google::protobuf::Empty* request) {
     RobotStatus rs;
 
     QList<RobotStatus> rsList;
@@ -25,11 +22,9 @@ grpc::Status SensorService::SetAllRobotStatus(grpc::ServerContext* context, grpc
         rsList.push_back(rs);
     }
 
-    for (RobotStatus robotStatus : rsList) {
-        std::cout << robotStatus.robotidentifier().robotid() << std::endl;
-    }
-
+    std::cout << "Trying to set list." << std::endl;
     getWorld()->setRobotsStatus(rsList);
-    
+    std::cout << "List set." << std::endl;
+
     return grpc::Status::OK;
 }
