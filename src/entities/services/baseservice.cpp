@@ -21,6 +21,8 @@
 
 #include "baseservice.h"
 
+#include <src/utils/text/text.h>
+
 BaseService::BaseService(QString address, World* world){
     _address = address;
     _world = world;
@@ -29,7 +31,7 @@ BaseService::BaseService(QString address, World* world){
 
 void BaseService::registerService(grpc::Service *service) {
     if(service == nullptr) {
-        std::cout << "BaseService::registerService(grpc::Service*) could not register an null service.\n";
+        std::cout << Text::red("[ERROR] ", true) + Text::bold("BaseService::registerService(grpc::Service*) could not register an null service.\n");
         return ;
     }
 
@@ -38,7 +40,7 @@ void BaseService::registerService(grpc::Service *service) {
 
 World* BaseService::getWorld() {
     if(_world == nullptr) {
-        std::cout << "BaseService::getWorld() returned nullptr!\n";
+        std::cout << Text::yellow("[WARNING] ", true) + Text::bold("BaseService::getWorld() returned nullptr!\n");
     }
 
     return _world;
@@ -46,12 +48,12 @@ World* BaseService::getWorld() {
 
 void BaseService::initialization() {
     if(_service == nullptr) {
-        std::cout << "Could not find an suitable gRPC service for " + name().toStdString() + ". Have you used the registerService(grpc::Service) function?\n";
+        std::cout << Text::red("[ERROR]" , true) + Text::bold("Could not find an suitable gRPC service for " + name().toStdString() + ". Have you used the registerService(grpc::Service) function?\n");
         return ;
     }
 
     if(_world == nullptr) {
-        std::cout << "Could not initialize service for " + name().toStdString() + " because World is nullptr.\n";
+        std::cout << Text::red("[ERROR] ", true) + Text::bold("Could not initialize service for " + name().toStdString() + " because World is nullptr.\n");
         return ;
     }
 
@@ -60,11 +62,11 @@ void BaseService::initialization() {
     _server = std::unique_ptr<grpc::Server>(_serverBuilder.BuildAndStart());
 
     if(_server == nullptr) {
-        std::cout << "Error when opening " + name().toStdString() + " service.\n";
+        std::cout << Text::red("[ERROR] ", true) + Text::bold("Error when opening " + name().toStdString() + " service.\n");
         return ;
     }
 
-    std::cout << name().toStdString() + " Service listening on " + _address.toStdString() + " \n";
+    std::cout << Text::cyan(name().toStdString(), true) + Text::bold(" Service listening on " + _address.toStdString()) + " \n";
 }
 
 void BaseService::loop() {
@@ -74,5 +76,5 @@ void BaseService::loop() {
 void BaseService::finalization() {
     _server->Shutdown();
     _server->Wait();
-    std::cout << name().toStdString() + " Server shutdown." + "\n";
+    std::cout << Text::cyan(name().toStdString(), true) + Text::bold(" Server shutdown.") + "\n";
 }
