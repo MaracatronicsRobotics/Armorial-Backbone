@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ***/
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "coachservice.h"
 
 CoachService::CoachService(QString address, World* world) : BaseService(address, world) {

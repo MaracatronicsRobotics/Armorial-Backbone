@@ -1,6 +1,4 @@
 #include <QCoreApplication>
-#include <QList>
-#include <QMutex>
 
 #include <src/entities/services/coach/coachservice.h>
 #include <src/entities/services/vision/visionservice.h>
