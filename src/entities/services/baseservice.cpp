@@ -66,7 +66,7 @@ void BaseService::initialization() {
         return ;
     }
 
-    std::cout << Text::cyan(name().toStdString(), true) + Text::bold(" Service listening on " + _address.toStdString()) + " \n";
+    std::cout << Text::cyan("["+name().toUpper().toStdString()+"]", true) + Text::bold(" Service listening on " + _address.toStdString()) + " \n";
 }
 
 void BaseService::loop() {
