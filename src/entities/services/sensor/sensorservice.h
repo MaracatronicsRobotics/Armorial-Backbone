@@ -23,8 +23,8 @@
 #ifndef SENSOR_SERVICE_H
 #define SENSOR_SERVICE_H
 
-#include <include/sensorservice.grpc.pb.h>
 #include <src/entities/services/baseservice.h>
+#include <proto/sensorservice.grpc.pb.h>
 
 class SensorService : public BaseService, public Sensor::SensorService::Service {
 public:

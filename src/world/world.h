@@ -24,7 +24,7 @@
 
 #include <QMap>
 #include <QReadWriteLock>
-#include <include/messages.pb.h>
+#include <proto/messages.pb.h>
 
 /**
  * @brief The World class will allow the services to request and store upcoming data

@@ -23,8 +23,8 @@
 #ifndef ACTUATORSERVICE_H
 #define ACTUATORSERVICE_H
 
-#include <include/actuatorservice.grpc.pb.h>
 #include <src/entities/services/baseservice.h>
+#include <proto/actuatorservice.grpc.pb.h>
 
 /**
  * @brief The ActuatorService class is the responsible for the threatment of all Actuator related rpcs

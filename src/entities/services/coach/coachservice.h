@@ -22,8 +22,8 @@
 #ifndef COACH_SERVICE_H
 #define COACH_SERVICE_H
 
-#include <include/coachservice.grpc.pb.h>
 #include <src/entities/services/baseservice.h>
+#include <proto/coachservice.grpc.pb.h>
 
 /**
  * @brief The CoachService class is the responsible for the threatment of all Coach related rpcs

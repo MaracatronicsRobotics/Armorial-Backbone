@@ -24,7 +24,7 @@
 #define VISIONSERVICE_H
 
 #include <src/entities/services/baseservice.h>
-#include <include/visionservice.grpc.pb.h>
+#include <proto/visionservice.grpc.pb.h>
 
 /**
  * @brief The VisionService class is the responsible for the threatment of all Vision related rpcs
