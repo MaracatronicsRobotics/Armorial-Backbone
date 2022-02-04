@@ -1,31 +1,29 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 message Robot {
-	RobotIdentifier robotIdentifier           = 1;
-	Position robotPosition                    = 2;
-	Angle robotOrientation                    = 3;
-	Velocity robotVelocity                    = 4;
-	AngularSpeed robotAngularSpeed            = 5;
-	RobotStatus robotStatus                   = 6;
-	google.protobuf.Timestamp packetTimeStamp = 7;
+	RobotIdentifier robotIdentifier = 1;
+	Position robotPosition          = 2;
+	Angle robotOrientation          = 3;
+	Velocity robotVelocity          = 4;
+	Acceleration robotAcceleration  = 5;
+	AngularSpeed robotAngularSpeed  = 6;
+	RobotStatus robotStatus         = 7;
 }
 
 message Ball {
-	Position ballPosition = 1;
-	Velocity ballVelocity = 2;
+	Position ballPosition         = 1;
+	Velocity ballVelocity         = 2;
+	Acceleration ballAcceleration = 3;
 }
 
 message ControlPacket {
-	RobotIdentifier robotIdentifier           = 1;
-	Velocity robotVelocity                    = 2;
-	AngularSpeed robotAngularSpeed            = 3;
-	float w1                                  = 4;
-	float w2                                  = 5;
-	float w3                                  = 6;
-	float w4                                  = 7;
-	google.protobuf.Timestamp packetTimeStamp = 8;
+	RobotIdentifier robotIdentifier = 1;
+	Velocity robotVelocity          = 2;
+	AngularSpeed robotAngularSpeed  = 3;
+	float w1                        = 4;
+	float w2                        = 5;
+	float w3                        = 6;
+	float w4                        = 7;
 }
 
 message Field {
@@ -70,23 +68,34 @@ message Color {
 }
 
 message Position {
-	float x = 1;
-	float y = 2;
-	float z = 3;
+	float x        = 1;
+	float y        = 2;
+	float z        = 3;
+	bool isInvalid = 4;
 }
 
 message Angle {
 	float value      = 1;
-	bool isInRadians = 2;
+	bool isInDegrees = 2;
+	bool isInvalid   = 3;
 }
 
 message Velocity {
-	float vx = 1;
-	float vy = 2;
-	float vz = 3;
+	float vx       = 1;
+	float vy       = 2;
+	float vz       = 3;
+	bool isInvalid = 4;
+}
+
+message Acceleration {
+	float ax       = 1;
+	float ay       = 2;
+	float az       = 3;
+	bool isInvalid = 4;
 }
 
 message AngularSpeed {
 	float vw         = 1;
-	bool isInRadians = 2;
+	bool isInDegrees = 2;
+	bool isInvalid   = 3;
 }
