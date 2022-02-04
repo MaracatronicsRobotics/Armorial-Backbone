@@ -49,6 +49,7 @@ SOURCES += \
         main.cpp \
         src/entities/entity.cpp \
         src/entities/services/baseservice.cpp \
+        src/entities/services/actuator/actuatorservice.cpp \
         src/entities/services/coach/coachservice.cpp \
         src/entities/services/vision/visionservice.cpp \
         src/entities/services/sensor/sensorservice.cpp \
@@ -75,6 +76,7 @@ HEADERS += \ \
     include/visionservice.pb.h \
     src/entities/entity.h \
     src/entities/services/baseservice.h \
+    src/entities/services/actuator/actuatorservice.h \
     src/entities/services/coach/coachservice.h \
     src/entities/services/vision/visionservice.h \
     src/entities/services/sensor/sensorservice.h \
