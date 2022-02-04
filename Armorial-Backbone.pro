@@ -22,8 +22,8 @@ QT += core \
 DEFINES += QT_DEPRECATED_WARNINGS
 LIBS += -lQt5Core -lprotobuf -lgrpc++
 
-system(echo "compiling protobuf" && cd include/proto && protoc --grpc_out=../ --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` *.proto && cd ../../..)
-system(echo "compiling protobuf" && cd include/proto && protoc --cpp_out=../ *.proto && cd ../../..)
+system(echo "compiling protobuf" && cd proto/services && protoc --grpc_out=../ --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` *.proto && cd ../../..)
+system(echo "compiling protobuf" && cd proto/services && protoc --cpp_out=../ *.proto && cd ../../..)
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -37,15 +37,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        include/actuatorservice.grpc.pb.cc \
-        include/actuatorservice.pb.cc \
-        include/coachservice.grpc.pb.cc \
-        include/messages.grpc.pb.cc \
-        include/messages.pb.cc \
-        include/sensorservice.grpc.pb.cc \
-        include/sensorservice.pb.cc \
-        include/visionservice.grpc.pb.cc \
-        include/visionservice.pb.cc \
+        proto/actuatorservice.grpc.pb.cc \
+        proto/actuatorservice.pb.cc \
+        proto/coachservice.grpc.pb.cc \
+        proto/messages.grpc.pb.cc \
+        proto/messages.pb.cc \
+        proto/sensorservice.grpc.pb.cc \
+        proto/sensorservice.pb.cc \
+        proto/visionservice.grpc.pb.cc \
+        proto/visionservice.pb.cc \
         main.cpp \
         src/entities/entity.cpp \
         src/entities/services/baseservice.cpp \
@@ -64,16 +64,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \ \
-    include/actuatorservice.grpc.pb.h \
-    include/actuatorservice.pb.h \
-    include/coachservice.grpc.pb.h \
-    include/coachservice.pb.h \
-    include/messages.grpc.pb.h \
-    include/messages.pb.h \
-    include/sensorservice.grpc.pb.h \
-    include/sensorservice.pb.h \
-    include/visionservice.grpc.pb.h \
-    include/visionservice.pb.h \
+    proto/actuatorservice.grpc.pb.h \
+    proto/actuatorservice.pb.h \
+    proto/coachservice.grpc.pb.h \
+    proto/coachservice.pb.h \
+    proto/messages.grpc.pb.h \
+    proto/messages.pb.h \
+    proto/sensorservice.grpc.pb.h \
+    proto/sensorservice.pb.h \
+    proto/visionservice.grpc.pb.h \
+    proto/visionservice.pb.h \
     src/entities/entity.h \
     src/entities/services/baseservice.h \
     src/entities/services/actuator/actuatorservice.h \
