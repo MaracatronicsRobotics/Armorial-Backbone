@@ -41,7 +41,7 @@ public:
 
     grpc::Status SetControl(grpc::ServerContext *context, const ControlPacket *request, google::protobuf::Empty *response);
     grpc::Status SetControls(grpc::ServerContext *context, grpc::ServerReader< ::ControlPacket> *reader, google::protobuf::Empty *response);
-    grpc::Status RegisterActuator(grpc::ServerContext *context, const google::protobuf::Empty *request, grpc::ServerWriter< ::ControlPacket> *writer);
+    grpc::Status GetControls(grpc::ServerContext *context, const google::protobuf::Empty *request, grpc::ServerWriter< ::ControlPacket> *writer);
 };
 
 #endif // ACTUATORSERVICE_H

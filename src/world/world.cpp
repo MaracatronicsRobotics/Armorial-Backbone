@@ -148,6 +148,22 @@ void World::setBallData(const Ball* ball) {
     _ballMutex.unlock();
 }
 
+void World::setControlPacket(ControlPacket controlPacket) {
+    _robotMutex.lockForWrite();
+
+    _controlPackets.push_back(controlPacket);
+
+    _robotMutex.unlock();
+}
+
+void World::setControlPacketsData(QList<ControlPacket> controlPacketList) {
+    _robotMutex.lockForWrite();
+
+    _controlPackets.append(controlPacketList);
+
+    _robotMutex.unlock();
+}
+
 QList<Robot> World::getRobotsFromColor(const Color* color) {
     _robotMutex.lockForRead();
 
@@ -156,6 +172,17 @@ QList<Robot> World::getRobotsFromColor(const Color* color) {
     _robotMutex.unlock();
 
     return robots;
+}
+
+QList<ControlPacket> World::getRobotsControlPacket() {
+    _robotMutex.lockForRead();
+
+    QList<ControlPacket> packets = _controlPackets;
+    _controlPackets.clear();
+
+    _robotMutex.unlock();
+
+    return packets;
 }
 
 Robot* World::getRobotData(const RobotIdentifier* identifier) {

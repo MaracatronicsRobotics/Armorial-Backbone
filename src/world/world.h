@@ -77,11 +77,31 @@ public:
     void setBallData(const Ball* ball);
 
     /**
+     * Store the robots control data
+     *
+     * @param controlPacketList The list containing the control packets
+     */
+    void setControlPacketsData(QList<ControlPacket> controlPacketList);
+
+    /**
+     * Store the robot control data
+     *
+     * @param controlPacket The robot control packet
+     */
+    void setControlPacket(ControlPacket controlPacket);
+
+    /**
      *
      * @param color The color which the returned robots are assigned
      * @return QList containing all the stored robots from the specified color
      */
     QList<Robot> getRobotsFromColor(const Color* color);
+
+    /**
+     *
+     * @return QList containing all the stored robots control packets
+     */
+    QList<ControlPacket> getRobotsControlPacket();
 
     /**
      *
@@ -105,6 +125,7 @@ public:
 private:
     // Internal variables
     QMap<bool, QList<Robot>*> _robots; /*!< Stores, for each team color, an list of its robots */
+    QList<ControlPacket> _controlPackets; /*!< Stores the robots control packets */
     Field _field; /*!< Stores the latest Field data */
     Ball _ball; /*!< Stores the latest Ball data */
 

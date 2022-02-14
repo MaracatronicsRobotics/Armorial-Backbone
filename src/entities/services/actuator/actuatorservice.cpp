@@ -31,13 +31,30 @@ QString ActuatorService::name() {
 }
 
 grpc::Status ActuatorService::SetControl(grpc::ServerContext *context, const ControlPacket *request, google::protobuf::Empty *response) {
+    getWorld()->setControlPacket(*request);
 
+    return grpc::Status::OK;
 }
 
 grpc::Status ActuatorService::SetControls(grpc::ServerContext *context, grpc::ServerReader< ::ControlPacket> *reader, google::protobuf::Empty *response) {
+    ControlPacket packet;
 
+    QList<ControlPacket> controlPacketList;
+    while (reader->Read(&packet)) {
+        controlPacketList.push_back(packet);
+    }
+
+    getWorld()->setControlPacketsData(controlPacketList);
+
+    return grpc::Status::OK;
 }
 
-grpc::Status ActuatorService::RegisterActuator(grpc::ServerContext *context, const google::protobuf::Empty *request, grpc::ServerWriter< ::ControlPacket> *writer) {
+grpc::Status ActuatorService::GetControls(grpc::ServerContext *context, const google::protobuf::Empty *request, grpc::ServerWriter< ::ControlPacket> *writer) {
+    QList<ControlPacket> controlPacketList = getWorld()->getRobotsControlPacket();
 
+    for(ControlPacket cp : controlPacketList) {
+        writer->Write(cp);
+    }
+
+    return grpc::Status::OK;
 }
