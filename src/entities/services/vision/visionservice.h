@@ -26,6 +26,8 @@
 #include <src/entities/services/baseservice.h>
 #include <proto/visionservice.grpc.pb.h>
 
+using namespace Armorial;
+
 /**
  * @brief The VisionService class is the responsible for the threatment of all Vision related rpcs
  */

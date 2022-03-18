@@ -26,6 +26,8 @@
 #include <QReadWriteLock>
 #include <proto/messages.pb.h>
 
+using namespace Armorial;
+
 /**
  * @brief The World class will allow the services to request and store upcoming data
  */

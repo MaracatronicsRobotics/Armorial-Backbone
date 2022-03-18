@@ -25,6 +25,8 @@
 #include <src/entities/services/baseservice.h>
 #include <proto/coachservice.grpc.pb.h>
 
+using namespace Armorial;
+
 /**
  * @brief The CoachService class is the responsible for the threatment of all Coach related rpcs
  */

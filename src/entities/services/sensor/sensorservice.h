@@ -26,6 +26,8 @@
 #include <src/entities/services/baseservice.h>
 #include <proto/sensorservice.grpc.pb.h>
 
+using namespace Armorial;
+
 class SensorService : public BaseService, public Sensor::SensorService::Service {
 public:
     SensorService(QString address, World* world);

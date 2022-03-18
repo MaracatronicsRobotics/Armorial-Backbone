@@ -26,6 +26,8 @@
 #include <src/entities/services/baseservice.h>
 #include <proto/actuatorservice.grpc.pb.h>
 
+using namespace Armorial;
+
 /**
  * @brief The ActuatorService class is the responsible for the threatment of all Actuator related rpcs
  */
