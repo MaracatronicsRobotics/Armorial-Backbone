@@ -34,6 +34,8 @@ QString SensorService::name() {
 grpc::Status SensorService::SetRobotStatus(grpc::ServerContext* context, const RobotStatus* robotStatus, ::google::protobuf::Empty* request) {
     getWorld()->setRobotStatus(robotStatus);
 
+    std::cout << QString("Received status change for robot %1 - dribbling is now %2").arg(robotStatus->robotidentifier().robotid()).arg(robotStatus->infrared()).toStdString() + '\n';
+
     return grpc::Status::OK;
 }
 
