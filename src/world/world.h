@@ -26,6 +26,8 @@
 #include <QReadWriteLock>
 #include <proto/messages.pb.h>
 
+#define ROBOT_INVALID_ID 200
+
 using namespace Armorial;
 
 /**
@@ -110,19 +112,19 @@ public:
      * @param identifier The robot identifier which the search will be made
      * @return Robot pointer containing the data from the searched robot
      */
-    Robot* getRobotData(const RobotIdentifier* identifier);
+    Robot getRobotData(const RobotIdentifier* identifier);
 
     /**
      *
      * @return Field class containing the data
      */
-    Field* getFieldData();
+    Field getFieldData();
 
     /**
      *
      * @return Ball class containing the data
      */
-    Ball* getBallData();
+    Ball getBallData();
 
 private:
     // Internal variables

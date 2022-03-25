@@ -185,15 +185,21 @@ QList<ControlPacket> World::getRobotsControlPacket() {
     return packets;
 }
 
-Robot* World::getRobotData(const RobotIdentifier* identifier) {
+Robot World::getRobotData(const RobotIdentifier* identifier) {
     _robotMutex.lockForRead();
 
     QList<Robot>* robots = _robots.value(identifier->robotcolor().isblue());
-    Robot* robotData = nullptr;
+    Robot robotData;
+
+    // Setting an invalid robot id for further checking
+    RobotIdentifier *invalidIdentifier = new RobotIdentifier();
+    invalidIdentifier->set_robotid(ROBOT_INVALID_ID);
+    robotData.set_allocated_robotidentifier(invalidIdentifier);
+
     for(int i = 0; i < robots->size(); i++) {
         if(robots->at(i).robotidentifier().robotid() == identifier->robotid()) {
             Robot data = robots->at(i);
-            robotData = &data;
+            robotData = data;
         }
     }
 
@@ -202,20 +208,20 @@ Robot* World::getRobotData(const RobotIdentifier* identifier) {
     return robotData;
 }
 
-Field* World::getFieldData() {
+Field World::getFieldData() {
     _fieldMutex.lockForRead();
 
-    Field* fieldData = &_field;
+    Field fieldData = _field;
 
     _fieldMutex.unlock();
 
     return fieldData;
 }
 
-Ball* World::getBallData() {
+Ball World::getBallData() {
     _ballMutex.lockForRead();
 
-    Ball* ballData = &_ball;
+    Ball ballData = _ball;
 
     _ballMutex.unlock();
 

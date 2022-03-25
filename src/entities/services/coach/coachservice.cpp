@@ -33,13 +33,12 @@ QString CoachService::name() {
 grpc::Status CoachService::GetRobot(grpc::ServerContext* context, const RobotIdentifier* identifier,
                           Robot* robot) {
 
-    Robot* robotData = getWorld()->getRobotData(identifier);
-    if(robotData == nullptr) {
-        robot = nullptr;
+    Robot robotData = getWorld()->getRobotData(identifier);
+    *robot = robotData;
+
+    if(robotData.robotidentifier().robotid() == ROBOT_INVALID_ID) {
         return grpc::Status::CANCELLED;
     }
-
-    robot = robotData;
 
     return grpc::Status::OK;
 }
@@ -58,7 +57,7 @@ grpc::Status CoachService::GetRobots(grpc::ServerContext* context, const Color* 
 grpc::Status CoachService::GetBall(grpc::ServerContext* context, const ::google::protobuf::Empty* request,
                           Ball* ball) {
 
-    ball = getWorld()->getBallData();
+    *ball = getWorld()->getBallData();
 
     return grpc::Status::OK;
 }
@@ -66,7 +65,7 @@ grpc::Status CoachService::GetBall(grpc::ServerContext* context, const ::google:
 grpc::Status CoachService::GetField(grpc::ServerContext* context, const ::google::protobuf::Empty* request,
                           Field* field) {
 
-    field = getWorld()->getFieldData();
+    *field = getWorld()->getFieldData();
 
     return grpc::Status::OK;
 }
