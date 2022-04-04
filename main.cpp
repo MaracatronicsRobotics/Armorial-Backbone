@@ -23,13 +23,6 @@ int main(int argc, char *argv[])
     SensorService *sensorService = new SensorService("0.0.0.0:50053", world);
     ActuatorService *actuatorService = new ActuatorService("0.0.0.0:50054", world);
 
-    ControlPacket packet;
-    Velocity *velocity = new Velocity();
-    velocity->set_vx(2.0);
-    velocity->set_vy(0.0);
-    packet.set_allocated_robotvelocity(velocity);
-    world->setControlPacket(packet);
-
     visionService->start();
     coachService->start();
     sensorService->start();
