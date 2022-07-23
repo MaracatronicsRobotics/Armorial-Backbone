@@ -1,0 +1,14 @@
+{
+        "Actuator": {
+            "Address": "localhost",
+            "Port": 50051
+        },
+        "Sensor":{
+            "Address": "localhost",
+            "Port": 50052
+        },
+        "Vision":{
+            "Address": "localhost",
+            "Port": 50053
+        }
+}
