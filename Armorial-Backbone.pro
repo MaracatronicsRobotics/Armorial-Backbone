@@ -1,5 +1,3 @@
-QT -= gui
-
 TEMPLATE = app
 DESTDIR  = ../bin
 TARGET   = Armorial-Backbone
@@ -13,23 +11,22 @@ RCC_DIR = tmp/rc
 
 CONFIG += c++17 console
 CONFIG -= app_bundle
-QT += core \
-        gui \
-        widgets \
-        network \
-        opengl
+QT += core network
 
 DEFINES += QT_DEPRECATED_WARNINGS
-LIBS += -lQt5Core -lprotobuf -lgrpc++
+LIBS += -lQt5Core -lprotobuf -lgrpc -lgrpc++ -lGLU -lfmt -lArmorial
 
-system(echo "compiling protobuf" && cd proto/services && protoc --grpc_out=../ --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` *.proto && cd ../../..)
-system(echo "compiling protobuf" && cd proto/services && protoc --cpp_out=../ *.proto && cd ../../..)
+system(echo "Generating GRPC headers" && cd include/proto/services && protoc --grpc_out=../ --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` *.proto && cd ../../..)
+system(echo "Generating proto headers" && cd include/proto/services && protoc --cpp_out=../ *.proto && cd ../../..)
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += APP_NAME=\\\"$$TARGET\\\"
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
+DEFINES += PROJECT_PATH=\\\"$${PWD}\\\"
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -37,50 +34,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        proto/actuatorservice.grpc.pb.cc \
-        proto/actuatorservice.pb.cc \
-        proto/coachservice.grpc.pb.cc \
-        proto/messages.grpc.pb.cc \
-        proto/messages.pb.cc \
-        proto/sensorservice.grpc.pb.cc \
-        proto/sensorservice.pb.cc \
-        proto/visionservice.grpc.pb.cc \
-        proto/visionservice.pb.cc \
+        include/proto/actuatorservice.grpc.pb.cc \
+        include/proto/actuatorservice.pb.cc \
+        include/proto/messages.grpc.pb.cc \
+        include/proto/messages.pb.cc \
+        include/proto/sensorservice.grpc.pb.cc \
+        include/proto/sensorservice.pb.cc \
+        include/proto/visionservice.grpc.pb.cc \
+        include/proto/visionservice.pb.cc \
         main.cpp \
-        src/entities/entity.cpp \
-        src/entities/services/baseservice.cpp \
-        src/entities/services/actuator/actuatorservice.cpp \
-        src/entities/services/coach/coachservice.cpp \
-        src/entities/services/vision/visionservice.cpp \
-        src/entities/services/sensor/sensorservice.cpp \
-        src/exithandler.cpp \
-        src/utils/text/text.cpp \
-        src/utils/timer/timer.cpp \
-        src/world/world.cpp
+        src/services/actuator/actuatorservice.cpp \
+        src/services/sensor/sensorservice.cpp \
+        src/services/vision/visionservice.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS += \ \
-    proto/actuatorservice.grpc.pb.h \
-    proto/actuatorservice.pb.h \
-    proto/coachservice.grpc.pb.h \
-    proto/coachservice.pb.h \
-    proto/messages.grpc.pb.h \
-    proto/messages.pb.h \
-    proto/sensorservice.grpc.pb.h \
-    proto/sensorservice.pb.h \
-    proto/visionservice.grpc.pb.h \
-    proto/visionservice.pb.h \
-    src/entities/entity.h \
-    src/entities/services/baseservice.h \
-    src/entities/services/actuator/actuatorservice.h \
-    src/entities/services/coach/coachservice.h \
-    src/entities/services/vision/visionservice.h \
-    src/entities/services/sensor/sensorservice.h \
-    src/exithandler.h \
-    src/utils/text/text.h \
-    src/utils/timer/timer.h \
-    src/world/world.h
+HEADERS += \
+    include/proto/actuatorservice.grpc.pb.h \
+    include/proto/actuatorservice.pb.h \
+    include/proto/messages.grpc.pb.h \
+    include/proto/messages.pb.h \
+    include/proto/sensorservice.grpc.pb.h \
+    include/proto/sensorservice.pb.h \
+    include/proto/visionservice.grpc.pb.h \
+    include/proto/visionservice.pb.h \
+    src/services/actuator/actuatorservice.h \
+    src/services/baseservice.h \
+    src/services/sensor/sensorservice.h \
+    src/services/vision/visionservice.h
